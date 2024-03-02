@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import rampwf as rw
-from sklearn.model_selection import StratifiedShuffleSplit
+from sklearn.model_selection import TimeSeriesSplit
 
 problem_title = 'Earthquake forecast'
 
@@ -16,10 +16,11 @@ score_types = [
 
 # cross-validation scheme
 def get_cv(X, y):
-    cv = StratifiedShuffleSplit(n_splits=8, test_size=0.2, random_state=42)
+    cv = TimeSeriesSplit(n_splits=5)
     return cv.split(X, y)
 
 # I/O methods
+# TODO: set column/ignore names
 _target_column_name = ''
 _ignore_column_names = ['']
 
@@ -29,11 +30,9 @@ def _read_data(path, f_name):
     X_df = data.drop([_target_column_name] + _ignore_column_names, axis=1)
     return X_df, y_array
 
-
 def get_train_data(path='.'):
     f_name = 'train.csv'
     return _read_data(path, f_name)
-
 
 def get_test_data(path='.'):
     f_name = 'test.csv'
