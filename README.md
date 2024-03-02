@@ -27,10 +27,10 @@ The participants are expected to submit a generative model $G$ that generate tim
 
 Evaluation of models will be based on two key metrics:
 - The **Anderson-Darling** metric between the generated magnitudes and the empirical magnitudes in the training dataset. This metric emphasizes differences in the distributions' extremes, placing greater emphasis on the tails that represent higher magnitudes and more destructive earthquakes.
-- The **Wassertein distance** of the generated inter-arrival times and magnitudes vector $(v_i)_i = ((T_{i} - T_{i-1}, M_i, ..., T_{i+k-1} - T_{i+k-2}, M_{i+k-1}))_i$, in $\mathbb{R}^{2k}$ and its empirical counterpart. This measurement ensures the model captures both the self-exciting properties of earthquake occurrences and the correlations between earthquake magnitudes and frequencies.
+- The **Wassertein distance** of the generated inter-arrival times and magnitudes vector $(v_i)_i = ((T_{i}-T_{i-1},M_i,\cdots,T_{i+k-1}-T_{i+k-2},M_{i+k-1}))_i$, in $\mathbb{R}^{2k}$ and its empirical counterpart. This measurement ensures the model captures both the self-exciting properties of earthquake occurrences and the correlations between earthquake magnitudes and frequencies.
 
 
-Denote $\mu_{M}$ the marginal distribution of the generated magnitudes, $\mu_{IA}$ the marginal distribution of the generated inter_arrival and magnitude vectors $(v_i)_i$, as well as $\hat{\mu_{M}}$ and $\hat{\mu_{IA}}$ their empirical couterparts in the test dataset. Then the final metric used to rank the participants is :
+Denote $\mu_{M}$ the marginal distribution of the generated magnitudes, $\mu_{IA}$ the marginal distribution of the generated inter_arrival and magnitude vectors $(v_i)_i$, as well as $\hat{\mu}_{M}$ and $\hat{\mu}_{IA}$ their empirical couterparts in the test dataset. Then the final metric used to rank the participants is :
 $$ \mathcal{L}(G) = AD(\mu_{M}, \hat{\mu_{M}}) + W_2(\mu_{IA}, \hat{\mu_{IA}})$$
 
 The participants' goal should be to minimize $\mathcal{L}$.
