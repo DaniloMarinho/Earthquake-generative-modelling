@@ -26,7 +26,24 @@ The participants are expected to submit a generative model $G$ that generate tim
 ## Evaluation Metric
 
 Evaluation of models will be based on two key metrics:
-- The **Anderson-Darling** metric between the generated magnitudes and the empirical magnitudes in the training dataset. This metric emphasizes differences in the distributions' extremes, placing greater emphasis on the tails that represent higher magnitudes and more destructive earthquakes.
+- The **Anderson-Darling** metric between the generated magnitudes and the empirical magnitudes in the training dataset. This metric emphasizes differences in the distributions' extremes, placing greater emphasis on the tails that represent higher magnitudes and more destructive earthquakes. Given a sample of magnitudes $M_1, ..., M_n$, let us denote its empirical cumulative distribution function ( or c.d.f.) as
+$$
+\widehat{F}_n(x) = \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}\left\{ M_i \le x \right\}
+$$
+The Anderson-Darling distance (A.D. distance) has the following expression:
+$$
+W_n=n \int_{-\infty}^{\infty} \frac{\left(\widehat{F}_n(x)-F(x)\right)^2}{F(x)(1-F(x))} d F(x)
+$$
+which consists essentially in a weighted square difference between the theoretical cumulative distribution function of the considered distribution and the empirical c.d.f. of an i.i.d. sample with that same distribution. To evaluate the performance of submission we propose an empirical version of the Anderson-Darling distance. We refer to $M_{1, n} \leq \cdots \leq X_{n, n}$ as the order statistics. For a generated sample $\tilde{M}_i$ we define the following
+$$
+\tilde{u}_{i, n}=\frac{1}{n+2}\left(\sum_{j=1}^n \mathbbm{1}\left\{M_j\leq \tilde{M}_{i, n}\right\}+1\right) \approx \widehat{F}_n^M(\tilde{M}_{i, n}) \approx \mathbb{P}_{M\sim\mu}\left( M \le \tilde{M}_{i, n} \right)
+$$
+which represents the model probability of a generated variable (with small corrections to avoid having $\tilde{u}_{i, n}=0,1$).
+The way we compute the Anderson-Darling distance is then
+$$
+AD((M_1,\ldots M_n),(\tilde{M}_1,\ldots \tilde{M}_n))=-n-\frac{1}{n} \sum_{i=1}^n(2 i-1)\left(\log \left(\widetilde{u}_{i, n}^\tau\right)+\log \left(1-\widetilde{u}_{n-i+1, n}^\tau\right)\right).
+$$
+
 - The **Wassertein distance** of the generated inter-arrival times and magnitudes vector $(v_i)_i = ((T_{i}-T_{i-1},M_i,\cdots,T_{i+k-1}-T_{i+k-2},M_{i+k-1}))_i$, in $\mathbb{R}^{2k}$ and its empirical counterpart. This measurement ensures the model captures both the self-exciting properties of earthquake occurrences and the correlations between earthquake magnitudes and frequencies.
 
 
@@ -35,7 +52,8 @@ $$ \mathcal{L}(G) = AD(\mu_{M}, \hat{\mu_{M}}) + W_2(\mu_{IA}, \hat{\mu_{IA}})$$
 
 The participants' goal should be to minimize $\mathcal{L}$.
 
-For more details on any of these two metrics we refer to [Wikipedia:Anderson-Darling](https://en.wikipedia.org/wiki/Anderson%E2%80%93Darling_test) and [Wikipedia:W2](https://en.wikipedia.org/wiki/Wasserstein_metric)
+For more details on any of these two metrics we refer to [Wikipedia:Anderson-Darling](https://en.wikipedia.org/wiki/Anderson%E2%80%93Darling_test) and [Wikipedia:W2](https://en.wikipedia.org/wiki/Wasserstein_metric). For for further details on the formulation of the Andesron-Darling distance in particular, we refer to [Asymptotic Theory of Certain "Goodness of Fit" Criteria Based on Stochastic Processes](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-2/Asymptotic-Theory-of-Certain-Goodness-of-Fit-Criteria-Based-on/10.1214/aoms/1177729437.full) and [Tests of Goodness-of-Fit](https://link.springer.com/referenceworkentry/10.1007/978-3-642-04898-2_118).
+
 
 ## Baseline Model
 
