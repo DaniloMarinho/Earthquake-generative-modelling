@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.spatial import distance
 import ot
+import pandas as pd
 
 
 def anderson_darling_distance(data_og, data_gen):
@@ -37,3 +38,30 @@ def multivariate_wasserstein_distance(x, y):
     p = np.ones(n) / n
     q = np.ones(n) / n
     return ot.emd2(p, q, M)
+
+def earthquake_simulation_metric(samples):
+    test_data = pd.read_csv('test_data.csv', index_col=0)
+    test_samples = test_data[["Time", "Magnitude"]]
+    test_samples["Time"] = test_samples["Time"] - test_samples["Time"].min()
+    test_samples = test_samples.to_numpy()
+
+    #Compute the Anderson Darling metric between the generated magnitudes and the true magnitudes
+    AD_magnitudes = anderson_darling_distance(samples[:,1].reshape(-1,1), test_samples[:,1].reshape(-1,1)) 
+
+    #Compute the W2 distance measuring the quality of the replication of the self-exciting behavior
+    samples_v_i_list = [[samples[i+1][0]-samples[i][0], samples[i][1], 
+                         samples[i+2][0]-samples[i+1][0], samples[i+1][1],
+                         samples[i+3][0]-samples[i+2][0], samples[i+2][1],
+                         samples[i+4][0]-samples[i+3][0], samples[i+3][1],
+                         samples[i+5][0]-samples[i+4][0], samples[i+4][1],
+                        ] for i in range(len(samples) - 5)]
+    
+    train_v_i_list = [[test_samples[i+1][0]-test_samples[i][0], test_samples[i][1], 
+                       test_samples[i+2][0]-test_samples[i+1][0], test_samples[i+1][1],
+                       test_samples[i+3][0]-test_samples[i+2][0], test_samples[i+2][1],
+                       test_samples[i+4][0]-test_samples[i+3][0], test_samples[i+3][1],
+                       test_samples[i+5][0]-test_samples[i+4][0], test_samples[i+4][1],
+                      ] for i in range(len(samples) - 5)]
+    
+    vi_W2 = multivariate_wasserstein_distance(samples_v_i_list, train_v_i_list)
+    return AD_magnitudes, vi_W2, AD_magnitudes+vi_W2
