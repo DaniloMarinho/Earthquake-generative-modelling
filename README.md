@@ -1,4 +1,4 @@
-# Data Science Challenge: Earthquake prediction in Japan
+# Data Science Challenge: Generative modeling of self exciting processes
 ##### Authors : Lucas Morisset, Danilo Fernandes, Frederico Testa, Omar Elkhalifi, Sébastion Vol, Cyprien Raffi
 
 ## Challenge Overview
