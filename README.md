@@ -21,7 +21,7 @@ Participants are expected to use this data only to train their models.
 
 ## Guidelines
 
-The participants are expected to submit a generative model $G$ that generate timestamps and magnitudes data. Mathematicaly, from a random noises $(Z_i)_i \in \mathbb{R}^d_{latent}$, the participant must generate $(G(Z_i))_i = ((T_i,M_i))_i$. Note that the randomness can be an intrinsic part of the model's design (for exemple one can use a Poisson point process to generate the $(T_i)_i$ sequence). 
+The participants are expected to submit a generative model $G$ that generate timestamps and magnitudes data. Mathematicaly, from a random noises $(Z_i)_i \in \mathbb{R}^d_{latent}$, the participant must generate $(G(Z_i))_i = ((T_i,M_i))_i$. Note that the randomness can be an intrinsic part of the model's design (for example one can use a Poisson point process to generate the $(T_i)_i$ sequence). 
 
 ## Evaluation Metric
 
