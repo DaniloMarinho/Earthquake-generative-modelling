@@ -1,5 +1,5 @@
 # Data Science Challenge: Earthquake prediction in Japan
-##### Authors : Morisset Lucas, Danilo Fernandes, Frederico Testa, Omar Elkhalifi, Sébastion Vol
+##### Authors : Lucas Morisset, Danilo Fernandes, Frederico Testa, Omar Elkhalifi, Sébastion Vol, Cyprien Raffi
 
 ## Challenge Overview
 
