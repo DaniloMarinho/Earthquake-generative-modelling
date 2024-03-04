@@ -2,7 +2,6 @@ import os
 import pandas as pd
 import rampwf as rw
 from sklearn.model_selection import ShuffleSplit
-# from utils import EarthquakeSimulationMetric
 
 problem_title = 'Earthquake generative modelling'
 
