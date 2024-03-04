@@ -40,7 +40,7 @@ def multivariate_wasserstein_distance(x, y):
     return ot.emd2(p, q, M)
 
 def earthquake_simulation_metric(samples):
-    test_data = pd.read_csv('test_data.csv', index_col=0)
+    test_data = pd.read_csv('data/data_generative_test.csv', index_col=0)
     test_samples = test_data[["Time", "Magnitude"]]
     test_samples["Time"] = test_samples["Time"] - test_samples["Time"].min()
     test_samples = test_samples.to_numpy()
