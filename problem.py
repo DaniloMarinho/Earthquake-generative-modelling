@@ -17,8 +17,8 @@ score_types = [
 
 # Cross-validation scheme
 def get_cv(X, y):
-    cv = ShuffleSplit(n_splits=3, test_size=0.2, random_state=42)
-    return cv.split(X)
+    cv = ShuffleSplit(n_splits=3, test_size=0.3, random_state=42)
+    return cv.split(X, y)
 
 # I/O methods
 _target_column_name = "Time5"
