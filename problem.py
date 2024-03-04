@@ -2,16 +2,16 @@ import os
 import pandas as pd
 import rampwf as rw
 from sklearn.model_selection import TimeSeriesSplit
+from utils import EarthquakeSimulationMetric
 
-problem_title = 'Earthquake forecast'
+problem_title = 'Earthquake generative modelling'
 
 Predictions = rw.prediction_types.make_regression()
 
 workflow = rw.workflows.Estimator()
 
-# TODO: define function for asymetric RMSE and include here
 score_types = [
-    rw.score_types.RMSE()
+    EarthquakeSimulationMetric()
 ]
 
 # cross-validation scheme
@@ -20,9 +20,8 @@ def get_cv(X, y):
     return cv.split(X, y)
 
 # I/O methods
-# TODO: set column/ignore names
-_target_column_name = ''
-_ignore_column_names = ['']
+_target_column_name = ["Time", "Magnitude"]
+_ignore_column_names = ["Place", "Longitude", "Latitude", "Depth"]
 
 def _read_data(path, f_name):
     data = pd.read_csv(os.path.join(path, 'data', f_name))
