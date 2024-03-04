@@ -1,0 +1,9 @@
+numpy
+pandas
+matplotlib
+HawkesPyLib
+geopandas
+shapely
+statsmodels
+scikit-learn
+ramp-workflow

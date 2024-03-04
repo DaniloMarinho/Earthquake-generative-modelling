@@ -1,32 +1,34 @@
 import os
 import pandas as pd
 import rampwf as rw
-from sklearn.model_selection import TimeSeriesSplit
-from utils import EarthquakeSimulationMetric
+from sklearn.model_selection import ShuffleSplit
+# from utils import EarthquakeSimulationMetric
 
 problem_title = 'Earthquake generative modelling'
 
+# Setting up regression workflow
 Predictions = rw.prediction_types.make_regression()
 
-workflow = rw.workflows.Estimator()
+workflow = rw.workflows.Regressor()
 
+# RMSE SCORE
 score_types = [
-    EarthquakeSimulationMetric()
+    rw.score_types.RMSE()
 ]
 
-# cross-validation scheme
+# Cross-validation scheme
 def get_cv(X, y):
-    cv = TimeSeriesSplit(n_splits=5)
-    return cv.split(X, y)
+    cv = ShuffleSplit(n_splits=3, test_size=0.2, random_state=42)
+    return cv.split(X)
 
 # I/O methods
-_target_column_name = ["Time", "Magnitude"]
-_ignore_column_names = ["Place", "Longitude", "Latitude", "Depth"]
+_target_column_name = "Time5"
+_ignore_column_names = []
 
 def _read_data(path, f_name):
     data = pd.read_csv(os.path.join(path, 'data', f_name))
     y_array = data[_target_column_name].values
-    X_df = data.drop([_target_column_name] + _ignore_column_names, axis=1)
+    X_df = data.drop([_target_column_name] + _ignore_column_names, axis=1).values
     return X_df, y_array
 
 def get_train_data(path='.'):
