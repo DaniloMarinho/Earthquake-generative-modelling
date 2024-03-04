@@ -1,4 +1,4 @@
-name: ramp-boston
+name: ramp-earthquake_generative_modelling
 channels:
   - defaults
 dependencies:

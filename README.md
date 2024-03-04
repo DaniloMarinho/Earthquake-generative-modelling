@@ -1,6 +1,14 @@
 # Data Science Challenge: Generative Modeling of Self-Exciting Processes
 ##### Authors : Lucas Morisset, Danilo Fernandes, Frederico Testa, Omar Elkhalifi, Sébastion Vol, Cyprien Raffi
 
+# Project presentation
+
+In this challenge, we focus on predicting self-exciting random point processes, with a particular application to earthquake prediction and simulation. The challenge is divided into two independent parts:
+
+- **First part:** The initial task is a regression task, where participants are asked to predict earthquakes in Japan using information from only the previous five earthquakes. Given that earthquakes have a self-exciting nature (i.e., one earthquake can trigger another), the task involves extracting statistical information from the timing and location of previous earthquakes. This first part is fully compatible with the Ramp framework.
+
+- **Second part:** The subsequent task is a generative model task. Participants are required to develop a generative framework (i.e., an earthquake simulation procedure) that best reproduces the real earthquakes' self-exciting behavior. Unfortunatly, this wasn't implemented in the Ramp framework.
+
 # RAMP starting-kit earthquakes predictions
 Prediction of time and magnitude of earthquakes using a generative model trained on data of Japanese earthquakes
 
